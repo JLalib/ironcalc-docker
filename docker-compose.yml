@@ -1,0 +1,19 @@
+services:
+  ironcalc:
+    image: ironcalc/ironcalc:latest
+    container_name: ironcalc
+    ports:
+      - "2080:2080"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    environment:
+      - RUST_LOG=info
+      - IRONCALC_BIND_ADDRESS=0.0.0.0:2080
+      - IRONCALC_DATA_DIR=/app/data
+    networks:
+      - ironcalc-net
+
+networks:
+  ironcalc-net:
+    driver: bridge
